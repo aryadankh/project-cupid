@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Year Wrapped</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #121212;
+            color: white;
+            font-family: 'Circular', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            max-height: 800px;
+            background: linear-gradient(180deg, #4b1c55 0%, #1e1e1e 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 0;
+            transition: background 0.5s ease;
+        }
+
+        @media(min-width: 500px) {
+            .phone-frame { border-radius: 20px; height: 90vh; }
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .active-fill { width: 100%; }
+
+        /* Content */
+        .slide {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .active-slide { display: flex; }
+
+        h1 { font-size: 2.5rem; margin: 0; line-height: 1.1; color: #1ed760; }
+        h2 { font-size: 1.2rem; margin-bottom: 10px; color: #e5e5e5; text-transform: uppercase; letter-spacing: 1px;}
+        .big-stat { font-size: 4rem; font-weight: 800; color: #ff6ad5; margin: 20px 0; }
+        .caption { font-size: 1.1rem; opacity: 0.8; margin-top: 10px; }
+
+        /* Slide Specifics */
+        .aura-box {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,106,213,1) 0%, rgba(121,9,111,0) 70%);
+            margin: 20px auto;
+            box-shadow: 0 0 50px rgba(255,106,213,0.5);
+            animation: pulse 3s infinite;
+        }
+
+        .photo-box {
+            width: 250px;
+            height: 250px;
+            background: #333;
+            margin: 20px auto;
+            transform: rotate(-5deg);
+            border: 10px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame" onclick="nextSlide()">
+    <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p2"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p3"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p4"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p5"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p6"></div></div>
+        <div class="progress-bar"><div class="progress-fill" id="p7"></div></div>
+    </div>
+
+    <div class="slide active-slide" id="slide1">
+        <h2>We've analyzed the data...</h2>
+        <h1 style="color: #c77dff;">2025-2026<br>Wrapped</h1>
+        <p class="caption">Tap to see the results</p>
+    </div>
+
+    <div class="slide" id="slide2">
+        <h2>Top Person</h2>
+        <div class="photo-box">
+            <img src="us1.jpeg" alt="Us" onerror="this.src='https://placehold.co/400'">
+        </div>
+        <h1>YOU.</h1>
+        <p class="caption">You were my #1 most viewed and favourite person.</p>
+    </div>
+
+    <div class="slide" id="slide3">
+        <h2>Total Minutes Thinking About You</h2>
+        <div class="big-stat" style="color: #4cc9f0;">525,600</div>
+        <p class="caption">That's... literally all the time.</p>
+    </div>
+
+    <div class="slide" id="slide4">
+        <h2>Our Top Activity</h2>
+        <div class="big-stat" style="font-size: 6rem;">😹🗣️💕</div>
+        <h1>Video Calls & Yapping</h1>
+        <p class="caption">Hours of talking about absolutely nothing.</p>
+    </div>
+
+    <div class="slide" id="slide5">
+        <h2>Top Feeling</h2>
+        <div class="big-stat">🦋🦋🦋</div>
+        <h1>Butterflies</h1>
+        <p class="caption">Every time I look at you.</p>
+    </div>
+
+    <div class="slide" id="slide6">
+        <h2>Your Aura</h2>
+        <div class="aura-box"></div>
+        <h1 style="color: #ff9e00;">Golden & Warm</h1>
+        <p class="caption">You light up my life.</p>
+    </div>
+
+    <div class="slide" id="slide7">
+        <h1 style="font-size: 2rem">Added to my Playlist:</h1>
+        <h1 style="color: #1ed760; margin-top:20px;">"Forever"</h1>
+        <p class="caption">Best decision ever. I Love you! ❤️</p>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 7; // Updated total count
+
+    function nextSlide() {
+        if (currentSlide >= totalSlides) return;
+        
+        // Mark current progress bar as full
+        if(currentSlide < totalSlides) {
+             document.getElementById('p' + currentSlide).classList.add('active-fill');
+        }
+
+        // Hide current slide
+        document.getElementById('slide' + currentSlide).classList.remove('active-slide');
+        
+        // Show next slide
+        currentSlide++;
+        document.getElementById('slide' + currentSlide).classList.add('active-slide');
+        
+        // If it's the last slide, trigger confetti automatically
+        if (currentSlide === totalSlides) {
+            createConfetti();
+        }
+
+        // Dynamic Background Colors (Updated for 7 slides)
+        const frame = document.querySelector('.phone-frame');
+        const colors = [
+            'linear-gradient(180deg, #4b1c55 0%, #1e1e1e 100%)', // 1 Intro
+            'linear-gradient(180deg, #4361ee 0%, #1e1e1e 100%)', // 2 Photo
+            'linear-gradient(180deg, #4cc9f0 0%, #1e1e1e 100%)', // 3 Minutes
+            'linear-gradient(180deg, #f72585 0%, #1e1e1e 100%)', // 4 Activity
+            'linear-gradient(180deg, #b5179e 0%, #1e1e1e 100%)', // 5 Feeling
+            'linear-gradient(180deg, #ff9e00 0%, #1e1e1e 100%)', // 6 Aura
+            'linear-gradient(180deg, #000000 0%, #000000 100%)', // 7 Success (Green)
+        ];
+        
+        if (colors[currentSlide - 1]) {
+            frame.style.background = colors[currentSlide - 1];
+        }
+    }
+
+    // Updated Confetti
+    function createConfetti() {
+        const emojis = ['❤️', '💖', '✨', '🎉', '🥰', '💌'];
+        for(let i=0; i<60; i++) {
+            const el = document.createElement('div');
+            el.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+            el.style.position = 'fixed';
+            el.style.left = Math.random()*100 + 'vw';
+            el.style.top = '-10vh';
+            el.style.fontSize = (Math.random()*25 + 20) + 'px';
+            el.style.animation = 'fall ' + (Math.random()*3 + 2) + 's linear';
+            document.body.appendChild(el);
+        }
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }`;
+        document.head.appendChild(style);
+    }
+</script>
+
+</body>
+</html>

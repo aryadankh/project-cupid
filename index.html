@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Very Important Question</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        h1 { color: #ff4b6e; margin-bottom: 20px; }
+        p { font-size: 1.2rem; line-height: 1.6; color: #555; }
+        
+        /* Buttons */
+        .btn {
+            background-color: #ff4b6e;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, background 0.2s;
+            outline: none;
+        }
+        
+        .btn:hover { background-color: #ff2e56; transform: scale(1.05); }
+        .btn-secondary { background-color: #ddd; color: #333; }
+        .btn-secondary:hover { background-color: #ccc; }
+
+        /* Pages logic */
+        .page { display: none; opacity: 0; transition: opacity 0.5s; }
+        .active { display: block; opacity: 1; }
+
+        /* Page 2: Photo Area – 9:16 portrait to match image */
+        .photo-frame {
+            width: 100%;
+            max-width: 225px;
+            aspect-ratio: 9 / 16;
+            background-color: #ffe6eb;
+            border-radius: 15px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px dashed #ff4b6e;
+        }
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        /* Page 4: The Running Button */
+        #noBtn { position: absolute; transition: all 0.1s; }
+        .buttons-container { position: relative; height: 100px; margin-top: 20px; }
+
+        /* Heart Animation */
+        .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+
+        /* Bottom-right link to Heart Wrapped */
+        .heart-wrapped-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff4b6e;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 75, 110, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 10;
+        }
+        .heart-wrapped-link:hover { background-color: #ff2e56; transform: scale(1.05); }
+        .heart-wrapped-link { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .heart-wrapped-link.visible { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="page1" class="page active">
+            <h1>❤️ High Priority Message ❤️</h1>
+            <p>Identity Verification Required.</p>
+            <p>Are you the cutest, prettiest, hottest, smartest, and most amazing girl I know?</p>
+            <br>
+            <button class="btn" onclick="nextPage(2)">Yes, obviously</button>
+            <button class="btn btn-secondary" onclick="alert('Try the other button, cutie!')">No</button>
+        </div>
+
+        <div id="page2" class="page">
+            <h1>Evidence Found</h1>
+            <div class="photo-frame">
+                <img src="us.jpeg" alt="A photo of us" onerror="this.style.display='none'; this.parentElement.innerHTML='(Put a cute photo of us here!)'">
+            </div>
+            <p>From the moment I met you, my life got infinitely better. You make me smile in ways no one else can.</p>
+            <button class="btn" onclick="nextPage(3)">Continue</button>
+        </div>
+
+        <div id="page3" class="page">
+            <h1>One More Thing...</h1>
+            <p>We have some serious business to discuss.</p>
+            <p>There is a specific date coming up (February 14th), and I have a vacancy for a "Partner in Crime."</p>
+            <button class="btn" onclick="nextPage(4)">See the Question</button>
+        </div>
+
+        <div id="page4" class="page">
+            <h1>Will you be my Valentine?</h1>
+            <p>Plijjj? 🥺</p>
+            
+            <div class="buttons-container">
+                <button class="btn" onclick="acceptProposal()">YES! ❤️</button>
+                <button id="noBtn" class="btn btn-secondary" onmouseover="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="page5" class="page">
+            <h1>🎉 YAYYY! 🎉</h1>
+            <p>Best decision ever!</p>
+            <p>I loveeee you cutuuu! ❤️</p>
+        </div>
+    </div>
+
+    <a href="index2.html" class="heart-wrapped-link">Click here to see my Heart Wrapped</a>
+
+    <script>
+        function nextPage(pageNumber) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show selected page
+            const selectedPage = document.getElementById('page' + pageNumber);
+            setTimeout(() => {
+                selectedPage.classList.add('active');
+            }, 100); // Small delay for smoothness
+
+            // Show "Heart Wrapped" link only on last slide (page 5)
+            const link = document.querySelector('.heart-wrapped-link');
+            if (pageNumber === 5) link.classList.add('visible');
+            else link.classList.remove('visible');
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.querySelector('.container');
+            
+            // Get container dimensions to keep button inside
+            const maxWidth = container.clientWidth - btn.clientWidth - 40;
+            const maxHeight = container.clientHeight - btn.clientHeight - 40;
+
+            const randomX = Math.floor(Math.random() * maxWidth);
+            const randomY = Math.floor(Math.random() * maxHeight);
+
+            // If we are in the buttons container, break out of flow to move freely
+            btn.style.position = 'absolute';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        function acceptProposal() {
+            nextPage(5);
+            createConfetti();
+        }
+
+        function createConfetti() {
+            // Simple confetti effect using emojis
+            for(let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = '-50px';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                heart.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+                document.body.appendChild(heart);
+            }
+            
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    to { transform: translateY(110vh) rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
